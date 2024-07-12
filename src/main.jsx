@@ -13,6 +13,8 @@ axios.defaults.headers.common["Authorization"] = `Bearer ${
   import.meta.env.VITE_SOME_KEY
 }`;
 
+console.log(import.meta.env.VITE_SOME_KEY)
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
