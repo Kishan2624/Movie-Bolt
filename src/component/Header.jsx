@@ -73,7 +73,7 @@ const Header = () => {
           </div>
         </div>
 
-        <div ref={mobileSearch} className={"lg:hidden"} >
+        <div ref={mobileSearch} className={"hidden lg:hidden"} >
         <MobileSearch/>
           </div>    
         
