@@ -14,10 +14,10 @@ const Home = () => {
   return (
     <div>
       <BannerHome />
-      <HorizontalCardScroll data={trendingData} heading="Trending" trending = {true}/>
-      <HorizontalCardScroll data={nowPlayingData} heading="Now Playing Movies" trending = {false}/>
-      <HorizontalCardScroll data={topRatedData} heading="Top Rated Movies" trending = {false}/>
-      <HorizontalCardScroll data={onAirTvShowData} heading="On Air Tv Shows" trending = {false}/>
+      <HorizontalCardScroll data={trendingData} heading="Trending" trending = {true} media_type={trendingData?.media_type}/>
+      <HorizontalCardScroll data={nowPlayingData} heading="Now Playing Movies" trending = {false} media_type={'movie'}/>
+      <HorizontalCardScroll data={topRatedData} heading="Top Rated Movies" trending = {false} media_type={'movie'}/>
+      <HorizontalCardScroll data={onAirTvShowData} heading="On Air Tv Shows" trending = {false} media_type={'tv'}/>
     </div>
   );
 };

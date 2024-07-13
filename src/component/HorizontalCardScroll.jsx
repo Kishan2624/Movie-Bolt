@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import Card from "../component/Card";
 import { MdOutlineArrowLeft, MdOutlineArrowRight } from "react-icons/md";
 
-const HorizontalCardScroll = ({ data = [], heading , trending}) => {
+const HorizontalCardScroll = ({ data = [], heading , trending,media_type}) => {
   const containerRef = useRef();
 
   const handleNext = () => {
@@ -30,6 +30,8 @@ const HorizontalCardScroll = ({ data = [], heading , trending}) => {
                 data={data}
                 index={i + 1}
                 trending={trending}
+                media_type={media_type}
+
               />
             );
           })}

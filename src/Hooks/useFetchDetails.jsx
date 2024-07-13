@@ -1,18 +1,19 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Card from "../component/Card"
 
-const Explore = () => {
+const useFetchDetails = ({endpoint,query}) => {
   const params = useParams();
+  const [query,setQuery] = useState('')
   const [pageNo, setPageNo] = useState(1);
   const [data, setData] = useState([]);
   const [totalPageNo, setTotalPageNo] = useState(0);
 
   const fetchData = async () => {
     try {
-      const response = await axios(`/discover/${params.explore}`, {
+      const response = await axios(endpoint, {
         params: {
+          query: query,
           page: pageNo,
         },
       });
@@ -34,36 +35,17 @@ const Explore = () => {
   };
 
   useEffect(() => {
+    setQuery("");
+    setPageNo(1);
+    setData([]);
     fetchData();
-  }, [pageNo]);
-
-  useEffect(() => {
-    setPageNo(1)
-    setData([])
-    fetchData();
-  }, [params.explore]);
+  }, [query]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
   }, []);
- 
 
-  return (
-    <div className="py-16">
-      <div className="container mx-auto ">
-        <h3 className="capitalize font-light lg:text-2xl text-xl my-3 px-3">
-          {params.explore}
-        </h3>
-      </div>
-      <div className="grid grid-cols-[repeat(auto-fit,230px)] gap-6 justify-center">
-        {data.map((exploreData,i) => {
-          return (
-            <Card data={exploreData} key={exploreData.id+"exploreSection"} media_type={params.explore}/>
-          )
-        })}
-      </div>
-    </div>
-  );
+  return {data,pageNo,}
 };
 
-export default Explore;
+export default useFetchDetails;

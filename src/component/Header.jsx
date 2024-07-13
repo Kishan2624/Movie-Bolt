@@ -7,10 +7,12 @@ const Header = () => {
   const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
-    if(searchInput){
+    if (searchInput) {
       navigate(`/search?q=${searchInput}`);
+    } else {
+      navigate("/search?q="); // Or any other default route you want to navigate to when searchInput is empty
     }
-  }, [searchInput]);
+  }, [searchInput, navigate])
 
   const handleSubmit = (e) => {
     e.preventDefault();
