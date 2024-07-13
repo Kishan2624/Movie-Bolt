@@ -40,7 +40,7 @@ const Explore = () => {
     setVideoPlay(true)
   }
 
-  const duration = (Number(details.runtime) / 60).toFixed(1).split(".");
+  const duration = (Number(details?.runtime) / 60).toFixed(1).split(".");
   const writer = castDetails?.crew
     ?.filter((el) => el?.job === "Writer")
     ?.map((el) => el?.name)
