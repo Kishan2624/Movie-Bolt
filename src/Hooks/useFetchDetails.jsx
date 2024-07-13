@@ -1,51 +1,26 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-const useFetchDetails = ({endpoint,query}) => {
-  const params = useParams();
-  const [query,setQuery] = useState('')
-  const [pageNo, setPageNo] = useState(1);
-  const [data, setData] = useState([]);
-  const [totalPageNo, setTotalPageNo] = useState(0);
+const useFetchDetails = (endpoint) => {
+  const [data, setData] = useState(null); // Initialize as null
 
   const fetchData = async () => {
     try {
-      const response = await axios(endpoint, {
-        params: {
-          query: query,
-          page: pageNo,
-        },
-      });
-
-      setData((prev) => {
-        return [...prev, ...response.data.results];
-      });
-
-      setTotalPageNo(response.data.results.total_pages);
+      const response = await axios(endpoint);
+      setData(response.data);
     } catch (error) {
       console.log("error", error);
     }
   };
 
-  const handleScroll = () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-      setPageNo((prev) => prev + 1);
+  useEffect(() => {
+    setData(null); // Clear previous data
+    if (endpoint) { // Check if endpoint is defined
+      fetchData();
     }
-  };
+  }, [endpoint]);
 
-  useEffect(() => {
-    setQuery("");
-    setPageNo(1);
-    setData([]);
-    fetchData();
-  }, [query]);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-  }, []);
-
-  return {data,pageNo,}
+  return { data };
 };
 
 export default useFetchDetails;

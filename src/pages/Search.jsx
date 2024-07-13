@@ -57,9 +57,12 @@ const Search = () => {
 
   return (
     <>
-      <div className="lg:py-16 pt-24">
-        <div className="container mx-auto">
-          <h3 className="capitalize font-light lg:text-2xl text-xl my-3 px-3">
+      <div className="lg:py-16 pt-20">
+        <div className="container mx-auto relavtive mb-20 lg:mb-0 ">
+          <h3 className="lg:hidden capitalize font-light lg:text-2xl text-xl my-3 px-3  fixed z-10 w-full  bg-black rounded-full pb-1 pt-3 text-ellipsis">
+            {`Search Results: ${query} `}
+          </h3>
+          <h3 className="hidden lg:block capitalize font-light lg:text-2xl text-xl my-3 px-3  ">
             {`Search Results: ${query} `}
           </h3>
         </div>

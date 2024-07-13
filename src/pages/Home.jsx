@@ -9,7 +9,6 @@ const Home = () => {
   const {data : nowPlayingData} = useFetch("/movie/now_playing")
   const {data : topRatedData} = useFetch("/movie/top_rated")
   const {data : poplularTvShowData} = useFetch("/tv/popular")
-  const {data : onAirTvShowData} = useFetch("/tv/on_the_air")
 
   return (
     <div>
@@ -17,7 +16,7 @@ const Home = () => {
       <HorizontalCardScroll data={trendingData} heading="Trending" trending = {true} media_type={trendingData?.media_type}/>
       <HorizontalCardScroll data={nowPlayingData} heading="Now Playing Movies" trending = {false} media_type={'movie'}/>
       <HorizontalCardScroll data={topRatedData} heading="Top Rated Movies" trending = {false} media_type={'movie'}/>
-      <HorizontalCardScroll data={onAirTvShowData} heading="On Air Tv Shows" trending = {false} media_type={'tv'}/>
+      <HorizontalCardScroll data={poplularTvShowData} heading="Popular Tv Shows" trending = {false} media_type={'tv'}/>
     </div>
   );
 };

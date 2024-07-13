@@ -11,10 +11,12 @@ const Card = ({ data, trending, index, media_type }) => {
       to={"/" + mediaType + "/" + data.id}
       className="w-full min-w-[230px] max-w-[230px] rounded h-80 block overflow-hidden relative hover:scale-110 transition-all"
     >
-      {imageURL + data.poster_path ? (
+      {data.poster_path ? (
         <img src={imageURL + data.poster_path} alt="" />
       ) : (
-        <p className="text-white text-lg">Image Not Found</p>
+        <div className="flex justify-center items-center w-full h-full border-2 border-solid border-black">
+          <p className="text-white text-lg">Image Not Found</p>
+        </div>
       )}
 
       <div className="absolute top-4 bg-black/60 rounded-r-full backdrop-blur-3xl overflow-hidden">
