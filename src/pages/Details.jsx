@@ -5,9 +5,9 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import Divider from "../component/Divider";
 import HorizontalCardScroll from "../component/HorizontalCardScroll";
-import VideoPlay from "../constants/VideoPlay";
+import VideoPlay from "../component/VideoPlay";
+import ApiVideoPlayer from "../component/ApiVideoPlayer";
 import { useState } from "react";
-
 
 const Explore = () => {
   const params = useParams();
@@ -23,9 +23,10 @@ const Explore = () => {
   const { data: recommendationData } = useFetchDetails(
     `${params.explore}/${params.id}/recommendations`
   );
-  const [playVideo,setVideoPlay] = useState(false)
-  const [playerVideoId,setPlayerVideoId] = useState("")
+  const [playVideo, setVideoPlay] = useState(false);
+  const [apiPlayVideo, setApiVideoPlay] = useState(false);
 
+  const [playerVideoId, setPlayerVideoId] = useState("");
 
   if (!similarData && !recommendationData && !details) {
     return (
@@ -36,9 +37,14 @@ const Explore = () => {
   }
 
   const handlePlayVideo = (details) => {
-    setPlayerVideoId(details)
-    setVideoPlay(true)
-  }
+    setPlayerVideoId(details);
+    setVideoPlay(true);
+  };
+
+  const handleApiPlayVideo = (details) => {
+    setPlayerVideoId(details);
+    setApiVideoPlay(true);
+  };
 
   const duration = (Number(details?.runtime) / 60).toFixed(1).split(".");
   const writer = castDetails?.crew
@@ -63,18 +69,27 @@ const Explore = () => {
       <div className="container mx-atuo px-3 py-20 lg:py-0 flex flex-col lg:flex-row gap-5 lg:gap-10 rounded">
         <div className=" relative mx-auto lg:-mt-28 lg:mx-0 w-fit ">
           <img
-            src={`${imageURL}${details.poster_path}`}
+            src={`${imageURL}${details?.poster_path}`}
             alt={`${details?.title || details?.name}`}
             className={"w-60 h-80 object-contain rounded"}
           />
-          <button onClick={ () => handlePlayVideo(details)} className="mt-1 bg-white text-black font-bold text-lg hover:bg-gradient-to-t from-red-500 to-orange-500 hover:scale-105 hover:text-white transition-all rounded w-full py-2 px- 4">Play Trailer</button>
+          <button
+            onClick={() => handlePlayVideo(details)}
+            className="mt-1 bg-white text-black font-bold text-lg hover:bg-gradient-to-t from-red-500 to-orange-500 hover:scale-105 hover:text-white transition-all rounded w-full py-2 px- 4"
+          >
+            Play Trailer
+          </button>
+          <button
+            onClick={() => handleApiPlayVideo(details)}
+            className="mt-1 bg-white text-black font-bold text-lg hover:bg-gradient-to-t from-red-500 to-orange-500 hover:scale-105 hover:text-white transition-all rounded w-full py-2 px- 4"
+          >{`Play ${params?.explore}`}</button>
         </div>
 
         <div className="w-full">
           <h2 className="text-3xl font-bold text-white lg:pt-4">
             {details?.title || details?.name}
           </h2>
-          <p className="text-neutral-400">{details.tagline}</p>
+          <p className="text-neutral-400">{details?.tagline}</p>
 
           <Divider />
 
@@ -159,12 +174,21 @@ const Explore = () => {
         />
       </div>
 
-      {
-        playVideo && (
-          <VideoPlay data={playerVideoId} close={() => setVideoPlay(false)} media_type={params?.explore}/>
-        )
-      }
-      
+      {playVideo && (
+        <VideoPlay
+          data={playerVideoId}
+          close={() => setVideoPlay(false)}
+          media_type={params?.explore}
+        />
+      )}
+
+      {apiPlayVideo && (
+        <ApiVideoPlayer
+          data={playerVideoId}
+          close={() => setApiVideoPlay(false)}
+          media_type={params?.explore}
+        />
+      )}
     </div>
   );
 };
