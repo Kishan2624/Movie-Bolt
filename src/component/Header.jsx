@@ -10,8 +10,6 @@ const Header = () => {
   useEffect(() => {
     if (searchInput) {
       navigate(`/search?q=${searchInput}`);
-    } else {
-      navigate("/search?q="); // Or any other default route you want to navigate to when searchInput is empty
     }
   }, [searchInput, navigate])
 

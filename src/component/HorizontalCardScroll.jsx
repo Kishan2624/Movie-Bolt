@@ -15,13 +15,13 @@ const HorizontalCardScroll = ({ data = [], heading , trending,media_type}) => {
 
   return (
     <div className="container mx-auto px-3 my-10 ">
-      <h2 className="text-xl font-bold lg:text-2xl mb-3 text-white">
+      <h2 className="text-xl font-bold lg:text-2xl mb-3 text-white capitalize">
         {heading}
       </h2>
       <div className=" relative ">
         <div
           ref={containerRef}
-          className="grid grid-cols-[repeat(auto-fit,230px)] gap-6 grid-flow-col overflow-x-scroll relative z-10 scroll-smooth transition-all scrollbar-hide"
+          className=" grid grid-cols-[repeat(auto-fit,230px)] gap-6 grid-flow-col overflow-x-scroll relative z-10 scroll-smooth transition-all scrollbar-hide"
         >
           {data.map((data, i) => {
             return (

@@ -27,6 +27,14 @@ const Explore = () => {
     }
   };
 
+  if (!data) {
+    return (
+      <div className="flex w-[100vw] h-[100vh] justify-center items-center text-4xl text-red-600">
+        Loading...
+      </div>
+    );
+  }
+
   const handleScroll = () => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
       setPageNo((prev) => prev + 1);

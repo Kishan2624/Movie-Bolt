@@ -12,8 +12,6 @@ const MobileSearch = () => {
   useEffect(() => {
     if (searchInput) {
       navigate(`/search?q=${searchInput}`);
-    } else {
-      navigate(`/search?q=`);
     }
   }, [searchInput, navigate]);
 

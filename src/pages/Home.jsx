@@ -10,6 +10,14 @@ const Home = () => {
   const {data : topRatedData} = useFetch("/movie/top_rated")
   const {data : poplularTvShowData} = useFetch("/tv/popular")
 
+  if (!trendingData && !nowPlayingData && !topRatedData) {
+    return (
+      <div className="flex w-[100vw] h-[100vh] justify-center items-center text-4xl text-red-600">
+        Loading...
+      </div>
+    );
+  }
+
   return (
     <div>
       <BannerHome />
