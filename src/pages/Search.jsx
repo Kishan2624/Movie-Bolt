@@ -57,7 +57,7 @@ const Search = () => {
 
   return (
     <>
-      <div className="py-16">
+      <div className="lg:py-16 pt-24">
         <div className="container mx-auto">
           <h3 className="capitalize font-light lg:text-2xl text-xl my-3 px-3">
             {`Search Results: ${query} `}

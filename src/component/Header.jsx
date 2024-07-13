@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { IoSearchOutline } from "react-icons/io5";
 import { navigation } from "../constants/nav";
+import MobileSearch from "./MobileSearch";
 
 const Header = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -17,6 +18,15 @@ const Header = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+  
+  const mobileSearch = useRef(null);
+
+  const handleSearch = () => {
+    if(mobileSearch.current){
+      mobileSearch.current.classList.toggle('hidden')
+    }
+  }
+
   return (
     <>
       <header className="fixed top-0 w-full h-16 bg-black bg-opacity-50 z-40">
@@ -54,7 +64,7 @@ const Header = () => {
                 onChange={(e) => setSearchInput(e.target.value)}
                 value={searchInput}
               />
-              <button className="text-2xl text-white  ">
+              <button className="text-2xl text-white  " onClick={handleSearch}>
                 <IoSearchOutline />
               </button>
             </form>
@@ -64,6 +74,11 @@ const Header = () => {
             </div>
           </div>
         </div>
+
+        <div ref={mobileSearch} className={"lg:hidden"} >
+        <MobileSearch/>
+          </div>    
+        
       </header>
     </>
   );
