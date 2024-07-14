@@ -94,12 +94,12 @@ const Explore = () => {
           <Divider />
 
           <div className="flex items-center gap-3 my-3">
-            <p>Rating : {Number(details.vote_average).toFixed(1)}</p>
+            <p>Rating : {Number(details?.vote_average).toFixed(1)}</p>
             <span>|</span>
-            <p>View : {Number(details.vote_count)}</p>
+            <p>View : {Number(details?.vote_count)}</p>
             <span>|</span>
             <p>
-              Duration : {duration[0]}h {duration[1]}m
+              Duration : {(duration == 'NaN') ?  "Not Found" : (`${duration[0]}h ${duration[1]}m`) }
             </p>
           </div>
           <Divider />
@@ -117,7 +117,7 @@ const Explore = () => {
                 {moment(details?.release_date).format("MMMM Do YYYY")}
               </p>
               <span>|</span>
-              <p>Revenue : {Number(details?.revenue)}</p>
+              <p>Revenue : {(details?.revenue) ? Number(details?.revenue) : "Not Found" }</p>
             </div>
             <Divider />
           </div>
@@ -125,11 +125,11 @@ const Explore = () => {
           <div>
             <p>
               <span className="text-white">Director</span> :{" "}
-              {castDetails?.crew[0]?.name}
+              {(castDetails?.crew[0]?.name) ? castDetails?.crew[0]?.name : "Not Found"}
             </p>
             <Divider />
             <p>
-              <span className="text-white">Writer</span> : {writer}
+              <span className="text-white">Writer</span> : {writer ? writer : "Not Found"}
             </p>
           </div>
 
@@ -141,7 +141,7 @@ const Explore = () => {
 
           <div className="grid grid-cols-[repeat(auto-fit,96px)] gap-5">
             {castDetails?.cast
-              ?.filter((el) => el.profile_path)
+              ?.filter((el) => el?.profile_path)
               .map((cast, index) => {
                 return (
                   <div>
