@@ -3,8 +3,17 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { IoSearchOutline } from "react-icons/io5";
 import { navigation } from "../constants/nav";
 import MobileSearch from "./MobileSearch";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
+
+  const {loginWithRedirect,logout,user,isAuthenticated, isLoading} = useAuth0();
+  
+
+  if (isLoading) {
+    return <div>Loading ...</div>;
+  }
+  
   const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
@@ -53,6 +62,10 @@ const Header = () => {
             })}
           </nav>
 
+          <div>
+            <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Log Out</button>
+          </div>
+
           <div className="ml-auto flex items-center gap-5">
             <form className="flex gap-5 items-center" onSubmit={handleSubmit}>
               <input
@@ -68,7 +81,8 @@ const Header = () => {
             </form>
 
             <div className="w-8 h-8 rounded-full overflow-hidden cursor-pointer active:scale-150 transition-all">
-              <img src="user.png" alt="user icon" />
+
+              {isAuthenticated ? (<img src={user.picture} alt={user.name} />) : (<img onClick={() => loginWithRedirect()} src="user.png" alt="user icon" />) }
             </div>
           </div>
         </div>
