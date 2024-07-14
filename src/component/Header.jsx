@@ -11,6 +11,7 @@ const Header = () => {
   
 
   if (isLoading) {
+    console.log(user)
     return <div>Loading ...</div>;
   }
   
