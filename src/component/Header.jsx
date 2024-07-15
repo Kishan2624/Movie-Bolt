@@ -6,6 +6,7 @@ import MobileSearch from "./MobileSearch";
 import { useAuth0 } from "@auth0/auth0-react";
 import Logo from "../../public/logo.png"
 import User from "../../public/user.png"
+import useScrollToTop from "../Hooks/useScrollToTop"
 
 const Header = () => {
   const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
@@ -33,6 +34,7 @@ const Header = () => {
   return (
     <>
       <header className="fixed top-0 w-full h-16 bg-black bg-opacity-50 z-40">
+      <useScrollToTop/>
         <div className="container mx-auto px-4 flex items-center h-full">
           <Link to={"/"}>
             <img src={Logo} alt="logo" width={120} />

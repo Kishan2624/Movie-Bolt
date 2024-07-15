@@ -1,5 +1,5 @@
 import "./App.css";
-import { Outlet } from "react-router-dom";
+import { Outlet} from "react-router-dom";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
 import MobileNav from "./component/MobileNav";
@@ -7,9 +7,10 @@ import { useEffect } from "react";
 import axios from 'axios'
 import { useDispatch } from "react-redux";
 import { setBannerData , setImageURL} from "./store/movieoSlice";
+import useScrollToTop from "./Hooks/useScrollToTop";
 
 function App() {
-
+  useScrollToTop()
   const dispatch = useDispatch()
 
   const fetechTrandingData = async() => {

@@ -8,6 +8,7 @@ import { store } from "./store/store";
 import { Provider } from "react-redux";
 import { Auth0Provider } from '@auth0/auth0-react';
 
+
 /** setup axios */
 axios.defaults.baseURL = "https://api.themoviedb.org/3/";
 axios.defaults.headers.common["Authorization"] = `Bearer ${
