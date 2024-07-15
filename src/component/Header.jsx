@@ -4,6 +4,8 @@ import { IoSearchOutline } from "react-icons/io5";
 import { navigation } from "../constants/nav";
 import MobileSearch from "./MobileSearch";
 import { useAuth0 } from "@auth0/auth0-react";
+import Logo from "../../public/logo.png"
+import User from "../../public/user.png"
 
 const Header = () => {
   const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
@@ -33,7 +35,7 @@ const Header = () => {
       <header className="fixed top-0 w-full h-16 bg-black bg-opacity-50 z-40">
         <div className="container mx-auto px-4 flex items-center h-full">
           <Link to={"/"}>
-            <img src="logo.png" alt="logo" width={120} />
+            <img src={Logo} alt="logo" width={120} />
           </Link>
 
           <nav className=" hidden lg:flex items-center gap-1 ml-5">
@@ -77,7 +79,7 @@ const Header = () => {
                 ) : (
                   <img
                     onClick={() => loginWithRedirect()}
-                    src="user.png"
+                    src={User}
                     alt="user icon"
                   />
                 )}
