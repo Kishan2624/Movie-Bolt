@@ -4,7 +4,7 @@ import { mobileNav } from "../constants/nav";
 
 const MobileNav = () => {
   return (
-    <section className="lg:hidden h-14 bg-black  fixed bottom-0 w-full z-10">
+    <section className="lg:hidden h-14 bg-black  fixed bottom-0 w-full z-10 mt-5">
       <div className="flex items-center justify-between h-full text-neutral-400 ">
         {mobileNav.map((nav, i) => {
           return (

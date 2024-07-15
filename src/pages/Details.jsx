@@ -66,7 +66,7 @@ const Explore = () => {
         <div className="absolute w-full h-full top-0 bg-gradient-to-t from-neutral-900/90 to-transparent"></div>
       </div>
 
-      <div className="container mx-atuo px-3 py-20 lg:py-0 flex flex-col lg:flex-row gap-5 lg:gap-10 rounded">
+      <div className="w-full mx-atuo px-3 py-20 lg:py-0 flex flex-col lg:flex-row gap-5 lg:gap-10 rounded">
         <div className=" relative mx-auto lg:-mt-28 lg:mx-0 w-fit ">
           <img
             src={`${imageURL}${details?.poster_path}`}
@@ -139,7 +139,7 @@ const Explore = () => {
             <h2 className="font-bold text-lg">Cast :</h2>
           </div>
 
-          <div className="grid grid-cols-[repeat(auto-fit,96px)] gap-5">
+          <div className="grid grid-cols-[repeat(auto-fit,96px)] gap-5 justify-center">
             {castDetails?.cast
               ?.filter((el) => el?.profile_path)
               .map((cast, index) => {
