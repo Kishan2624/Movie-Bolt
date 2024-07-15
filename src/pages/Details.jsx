@@ -13,15 +13,15 @@ const Explore = () => {
   const params = useParams();
   const imageURL = useSelector((state) => state.movieoData.imageURL);
 
-  const { data: details } = useFetchDetails(`${params.explore}/${params.id}`);
+  const { data: details } = useFetchDetails(`${params?.explore}/${params?.id}`);
   const { data: castDetails } = useFetchDetails(
-    `${params.explore}/${params.id}/credits`
+    `${params?.explore}/${params?.id}/credits`
   );
   const { data: similarData } = useFetchDetails(
-    `${params.explore}/${params.id}/similar`
+    `${params?.explore}/${params?.id}/similar`
   );
   const { data: recommendationData } = useFetchDetails(
-    `${params.explore}/${params.id}/recommendations`
+    `${params?.explore}/${params?.id}/recommendations`
   );
   const [playVideo, setVideoPlay] = useState(false);
   const [apiPlayVideo, setApiVideoPlay] = useState(false);
