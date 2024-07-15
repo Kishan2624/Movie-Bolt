@@ -8,6 +8,7 @@ export default {
     extend: {},
   },
   plugins: [
+    "prettier-plugin-tailwindcss",
     require('tailwind-scrollbar-hide')
   ],
 }
