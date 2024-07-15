@@ -14,11 +14,12 @@ axios.defaults.headers.common["Authorization"] = `Bearer ${
   import.meta.env.VITE_SOME_KEY
 }`;
 
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Auth0Provider
-    domain="dev-5ycylhzm2k5vh7ai.us.auth0.com"
-    clientId="krGTZeoqeJTskFDEsu66bcrj76iuKnpw"
+    domain={import.meta.env.VITE_DOMAIN_KEY}
+    clientId={import.meta.env.VITE_CLIENT_ID}
     authorizationParams={{
       redirect_uri: window.location.origin
     }}
