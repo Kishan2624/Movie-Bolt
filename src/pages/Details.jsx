@@ -7,7 +7,8 @@ import Divider from "../component/Divider";
 import HorizontalCardScroll from "../component/HorizontalCardScroll";
 import VideoPlay from "../component/VideoPlay";
 import ApiVideoPlayer from "../component/ApiVideoPlayer";
-import { useState } from "react";
+import { useState , useMemo} from "react";
+import SeasonList from "../component/SeasonList";
 
 const Explore = () => {
   const params = useParams();
@@ -52,6 +53,12 @@ const Explore = () => {
     ?.map((el) => el?.name)
     ?.join(", ");
 
+  const seasonNums = details?.seasons
+    ?.filter((el) => el.name.includes("Season"))
+    .map((el) => el.name);
+
+  console.log(seasonNums)
+
   return (
     <div className="w-full h-full  ">
       <div className="relative w-full ">
@@ -79,10 +86,14 @@ const Explore = () => {
           >
             Play Trailer
           </button>
-          <button
-            onClick={() => handleApiPlayVideo(details)}
-            className="mt-1 bg-white text-black font-bold text-lg hover:bg-gradient-to-t from-red-500 to-orange-500 hover:scale-105 hover:text-white transition-all rounded w-full py-2 px- 4"
-          >{`Play ${params?.explore}`}</button>
+          {params.explore === "movie" ? (
+            <button
+              onClick={() => handleApiPlayVideo(details)}
+              className="mt-1 bg-white text-black font-bold text-lg hover:bg-gradient-to-t from-red-500 to-orange-500 hover:scale-105 hover:text-white transition-all rounded w-full py-2 px- 4"
+            >{`Play ${params?.explore}`}</button>
+          ) : (
+            <SeasonList data={seasonNums} title = {"SEASONS"}/>
+          )}
         </div>
 
         <div className="w-full">
@@ -99,7 +110,10 @@ const Explore = () => {
             <p>View : {Number(details?.vote_count)}</p>
             <span>|</span>
             <p>
-              Duration : {(duration == 'NaN') ?  "Not Found" : (`${duration[0]}h ${duration[1]}m`) }
+              Duration :{" "}
+              {duration == "NaN"
+                ? "Not Found"
+                : `${duration[0]}h ${duration[1]}m`}
             </p>
           </div>
           <Divider />
@@ -117,7 +131,10 @@ const Explore = () => {
                 {moment(details?.release_date).format("MMMM Do YYYY")}
               </p>
               <span>|</span>
-              <p>Revenue : {(details?.revenue) ? Number(details?.revenue) : "Not Found" }</p>
+              <p>
+                Revenue :{" "}
+                {details?.revenue ? Number(details?.revenue) : "Not Found"}
+              </p>
             </div>
             <Divider />
           </div>
@@ -125,11 +142,14 @@ const Explore = () => {
           <div>
             <p>
               <span className="text-white">Director</span> :{" "}
-              {(castDetails?.crew[0]?.name) ? castDetails?.crew[0]?.name : "Not Found"}
+              {castDetails?.crew[0]?.name
+                ? castDetails?.crew[0]?.name
+                : "Not Found"}
             </p>
             <Divider />
             <p>
-              <span className="text-white">Writer</span> : {writer ? writer : "Not Found"}
+              <span className="text-white">Writer</span> :{" "}
+              {writer ? writer : "Not Found"}
             </p>
           </div>
 

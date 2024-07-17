@@ -3,6 +3,7 @@ import App from "../App";
 import Home from "../pages/Home";
 import Explore from "../pages/Explore";
 import Details from "../pages/Details";
+import SeasonDetails from "../pages/SeasonDetails";
 import Search from "../pages/Search";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
@@ -25,6 +26,11 @@ const router = createBrowserRouter([
       {
         path: ":explore/:id",
         element: <Details />,
+      },
+
+      {
+        path: "tv/:id/:season/:episode",
+        element: <SeasonDetails />,
       },
 
       {
