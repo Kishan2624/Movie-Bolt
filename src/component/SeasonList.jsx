@@ -10,13 +10,25 @@ const SeasonList = ({ data, title }) => {
   const params = useParams()
   const [seasonData, setSeasonData] = useState([])
 
-  const fetchDetails = async(seasonNumber) => {
-    const response = await axios.get(`tv/${params?.id}/season/${seasonNumber}`)
-    setSeasonData((prev) => {
-      return [...prev,...response.data.episodes]})
-  }
+  const fetchDetails = async (seasonNumber) => {
+    try {
+      const response = await axios.get(`tv/${params?.id}/season/${seasonNumber}`);
+      // Assuming each episode has a unique identifier like `id`
+      const newEpisodes = response.data.episodes;
+      setSeasonData((prev) => {
+        // Use a map to track uniqueness based on episode id
+        const episodeIds = new Set(prev.map(ep => ep.id));
+        const uniqueEpisodes = newEpisodes.filter(ep => !episodeIds.has(ep.id));
+        return [...prev, ...uniqueEpisodes];
+      });
+    } catch (error) {
+      console.error("Error fetching season details", error);
+    }
+  };
+
 
   console.log(data)
+  console.log(seasonData)
 
  
 
