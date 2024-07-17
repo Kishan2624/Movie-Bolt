@@ -12,7 +12,9 @@ import SeasonList from "../component/SeasonList";
 const Explore = () => {
   const params = useParams();
   const imageURL = useSelector((state) => state.movieoData.imageURL);
-
+  const { data: videoData } = useFetchDetails(
+    `${params.explore}/${params.id}/videos`
+  );
   const { data: details } = useFetchDetails(`${params?.explore}/${params?.id}`);
   const { data: castDetails } = useFetchDetails(
     `${params?.explore}/${params?.id}/credits`
@@ -83,7 +85,7 @@ const Explore = () => {
           </button>
           {params.explore === "movie" ? (
             <button
-              onClick={() => handlePlayVideo()}
+              onClick={() => handleApiPlayVideo()}
               className="mt-1 bg-white text-black font-bold text-lg hover:bg-gradient-to-t from-red-500 to-orange-500 hover:scale-105 hover:text-white transition-all rounded w-full py-2 px- 4"
             >{`Play ${params?.explore}`}</button>
           ) : (
@@ -124,12 +126,18 @@ const Explore = () => {
               <p>
                 Release Date :{" "}
                 {moment(details?.release_date).format("MMMM Do YYYY")}
-              </p>
-              <span>|</span>
+              </p> {
+                (params.explore === "movie") ?
+                (<div className="flex ">
+
+                <span className="me-2">|</span>
               <p>
                 Revenue :{" "}
                 {details?.revenue ? Number(details?.revenue) : "Not Found"}
               </p>
+                </div>) : null
+              }
+              
             </div>
             <Divider />
           </div>
