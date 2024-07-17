@@ -9,22 +9,23 @@ const Accordion = ({ btnNums, episodes }) => {
 
   return (
     <>
-      <div className="flex flex-col">
-        <div className="flex justify-around">
-          <button onClick={handleAccordion} className="">
+      <div onClick={handleAccordion} className="flex flex-col rounded-sm mx-auto gap-5 cursor-pointer w-[90%] ">
+        <div className="flex justify-around items-center shadow-lg font-bold">
+          <button  className="py-2">
             {btnNums}
           </button>
           <span>{accordionOpen ? "-" : "+"}</span>
         </div>
         <div
           className={
-            accordionOpen ? "h-auto overflow-hidden" : "h-0 overflow-hidden"
+            `bg-gray-100 flex gap-2 shadow-lg flex-col  rounded-md ${accordionOpen ? "h-auto overflow-hidden" : "h-0 overflow-hidden"}`
           }
+
         >
           {episodes?.map((el) => {
             return (
               <>
-              <Link to={`${btnNums?.match(/\d+/g)}/${el.episode_number}`}>
+              <Link className="shadow-lg mb-2 font-semibold" to={`${btnNums?.match(/\d+/g)}/${el.episode_number}`}>
                 <p>{el.episode_number}</p>
               
               </Link>
