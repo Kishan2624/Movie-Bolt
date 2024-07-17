@@ -5,8 +5,6 @@ import Accordion from "./Accordion";
 
 const SeasonList = ({ data, title }) => {
 
-
-
   const params = useParams()
   const [seasonData, setSeasonData] = useState([])
 
@@ -24,13 +22,7 @@ const SeasonList = ({ data, title }) => {
     } catch (error) {
       console.error("Error fetching season details", error);
     }
-  };
-
-
-  console.log(data)
-  console.log(seasonData)
-
- 
+  }; 
 
   useEffect(() => {
 
@@ -49,8 +41,6 @@ const SeasonList = ({ data, title }) => {
     
 
   }, [data,params.id])
-
-  console.log(seasonData)
 
 
   return (

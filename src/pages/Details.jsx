@@ -57,8 +57,6 @@ const Explore = () => {
     ?.filter((el) => el.name.includes("Season"))
     .map((el) => el.name);
 
-  console.log(seasonNums)
-
   return (
     <div className="w-full h-full  ">
       <div className="relative w-full ">
