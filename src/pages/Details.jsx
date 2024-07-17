@@ -6,8 +6,7 @@ import moment from "moment";
 import Divider from "../component/Divider";
 import HorizontalCardScroll from "../component/HorizontalCardScroll";
 import VideoPlay from "../component/VideoPlay";
-import ApiVideoPlayer from "../component/ApiVideoPlayer";
-import { useState , useMemo} from "react";
+import { useState, useMemo } from "react";
 import SeasonList from "../component/SeasonList";
 
 const Explore = () => {
@@ -27,7 +26,6 @@ const Explore = () => {
   const [playVideo, setVideoPlay] = useState(false);
   const [apiPlayVideo, setApiVideoPlay] = useState(false);
 
-  const [playerVideoId, setPlayerVideoId] = useState("");
 
   if (!similarData && !recommendationData && !details) {
     return (
@@ -37,15 +35,14 @@ const Explore = () => {
     );
   }
 
-  const handlePlayVideo = (details) => {
-    setPlayerVideoId(details);
+  const handlePlayVideo = () => {
     setVideoPlay(true);
   };
 
-  const handleApiPlayVideo = (details) => {
-    setPlayerVideoId(details);
+  const handleApiPlayVideo = () => {
     setApiVideoPlay(true);
   };
+
 
   const duration = (Number(details?.runtime) / 60).toFixed(1).split(".");
   const writer = castDetails?.crew
@@ -79,18 +76,18 @@ const Explore = () => {
             className={"w-60 h-80 object-contain rounded"}
           />
           <button
-            onClick={() => handlePlayVideo(details)}
+            onClick={() => handlePlayVideo()}
             className="mt-1 bg-white text-black font-bold text-lg hover:bg-gradient-to-t from-red-500 to-orange-500 hover:scale-105 hover:text-white transition-all rounded w-full py-2 px- 4"
           >
             Play Trailer
           </button>
           {params.explore === "movie" ? (
             <button
-              onClick={() => handleApiPlayVideo(details)}
+              onClick={() => handlePlayVideo()}
               className="mt-1 bg-white text-black font-bold text-lg hover:bg-gradient-to-t from-red-500 to-orange-500 hover:scale-105 hover:text-white transition-all rounded w-full py-2 px- 4"
             >{`Play ${params?.explore}`}</button>
           ) : (
-            <SeasonList data={seasonNums} title = {"SEASONS"}/>
+            <SeasonList data={seasonNums} title={"SEASONS"} />
           )}
         </div>
 
@@ -194,17 +191,15 @@ const Explore = () => {
 
       {playVideo && (
         <VideoPlay
-          data={playerVideoId}
           close={() => setVideoPlay(false)}
-          media_type={params?.explore}
+          videoData={`https://www.youtube.com/embed/${videoData?.results[0]?.key}`}
         />
       )}
 
       {apiPlayVideo && (
-        <ApiVideoPlayer
-          data={playerVideoId}
+        <VideoPlay
           close={() => setApiVideoPlay(false)}
-          media_type={params?.explore}
+          videoData={`https://vidsrc.to/embed/${params.explore}/${params.id}`}
         />
       )}
     </div>

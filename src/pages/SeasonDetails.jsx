@@ -1,59 +1,60 @@
-import axios from 'axios'
-import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import useFetchDetails from '../Hooks/useFetchDetails'
-import { useState } from 'react'
-import Divider from '../component/Divider'
-import moment from 'moment'
-import HorizontalCardScroll from '../component/HorizontalCardScroll'
-import ApiVideoPlayer from '../component/ApiVideoPlayer'
-import VideoPlay from '../component/VideoPlay'
-
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import useFetchDetails from "../Hooks/useFetchDetails";
+import { useState } from "react";
+import Divider from "../component/Divider";
+import moment from "moment";
+import HorizontalCardScroll from "../component/HorizontalCardScroll";
+import VideoPlay from "../component/VideoPlay";
 
 const SeasonDetails = () => {
-    const params = useParams()
-    const imageURL = useSelector((state) => state.movieoData.imageURL);
+  const params = useParams();
+  const imageURL = useSelector((state) => state.movieoData.imageURL);
 
-    const { data: imageDetails } = useFetchDetails(`${params.explore}/${params.id}/season/${params.season}/episode/${params.episode}/images `);
+  const { data: videoData } = useFetchDetails(
+    `${params.explore}/${params.id}/season/${params.season}/episode/${params.episode}/videos`
+  );
 
-    const { data: details } = useFetchDetails(`${params.explore}/${params.id}/season/${params.season}/episode/${params.episode}`);
-    
-    const { data: castDetails } = useFetchDetails(
-      `${params.explore}/${params.id}/season/${params.season}/episode/${params.episode}/credits`
-    );
+  console.log(videoData?.results[0]?.key);
 
+  const { data: imageDetails } = useFetchDetails(
+    `${params.explore}/${params.id}/season/${params.season}/episode/${params.episode}/images `
+  );
 
-    const { data: similarData } = useFetchDetails(
-      `${params?.explore}/${params?.id}/similar`
-    );
-    const { data: recommendationData } = useFetchDetails(
-      `${params?.explore}/${params?.id}/recommendations`
-    );
+  const { data: details } = useFetchDetails(
+    `${params.explore}/${params.id}/season/${params.season}/episode/${params.episode}`
+  );
 
-    const [playVideo, setVideoPlay] = useState(false);
+  const { data: castDetails } = useFetchDetails(
+    `${params.explore}/${params.id}/season/${params.season}/episode/${params.episode}/credits`
+  );
+
+  const { data: similarData } = useFetchDetails(
+    `${params?.explore}/${params?.id}/similar`
+  );
+  const { data: recommendationData } = useFetchDetails(
+    `${params?.explore}/${params?.id}/recommendations`
+  );
+
+  const [playVideo, setVideoPlay] = useState(false);
   const [apiPlayVideo, setApiVideoPlay] = useState(false);
 
-  const [playerVideoId, setPlayerVideoId] = useState("");
 
-  const handlePlayVideo = (details) => {
-    setPlayerVideoId(details);
+  const handlePlayVideo = () => {
     setVideoPlay(true);
   };
 
-  const handleApiPlayVideo = (details) => {
-    setPlayerVideoId(details);
+  const handleApiPlayVideo = () => {
     setApiVideoPlay(true);
   };
+
 
   const duration = (Number(details?.runtime) / 60).toFixed(1).split(".");
   const writer = castDetails?.crew
     ?.filter((el) => el?.job === "Writer")
     ?.map((el) => el?.name)
     ?.join(", ");
-
-  const seasonNums = details?.seasons
-    ?.filter((el) => el.name.includes("Season"))
-    .map((el) => el.name);
 
   return (
     <div className="w-full h-full  ">
@@ -78,17 +79,17 @@ const SeasonDetails = () => {
           />
 
           <button
-            onClick={() => handlePlayVideo(details)}
+            onClick={() => handlePlayVideo()}
             className=" captilize mt-1 bg-white text-black font-bold text-lg hover:bg-gradient-to-t from-red-500 to-orange-500 hover:scale-105 hover:text-white transition-all rounded w-full py-2 px- 4"
           >
             Play Trailer
           </button>
           <button
-              onClick={() => handleApiPlayVideo(details)}
-              className=" captilize mt-1 bg-white text-black font-bold text-lg hover:bg-gradient-to-t from-red-500 to-orange-500 hover:scale-105 hover:text-white transition-all rounded w-full py-2 px- 4"
-            >
-              Play {params.explore}
-            </button>
+            onClick={() => handleApiPlayVideo()}
+            className=" captilize mt-1 bg-white text-black font-bold text-lg hover:bg-gradient-to-t from-red-500 to-orange-500 hover:scale-105 hover:text-white transition-all rounded w-full py-2 px- 4"
+          >
+            Play {params.explore}
+          </button>
         </div>
 
         <div className="w-full">
@@ -123,7 +124,6 @@ const SeasonDetails = () => {
                 <span className="text-white">Release Date</span> :{" "}
                 {moment(details?.release_date).format("MMMM Do YYYY")}
               </p>
-              
             </div>
             <Divider />
           </div>
@@ -185,21 +185,19 @@ const SeasonDetails = () => {
 
       {playVideo && (
         <VideoPlay
-          data={playerVideoId}
           close={() => setVideoPlay(false)}
-          media_type={params?.explore}
+          videoData={`https://www.youtube.com/embed/${videoData?.results[0]?.key}`}
         />
       )}
 
       {apiPlayVideo && (
-        <ApiVideoPlayer
-          data={playerVideoId}
+        <VideoPlay
           close={() => setApiVideoPlay(false)}
-          media_type={params?.explore}
+          videoData={`https://vidsrc.to/embed/${params.explore}/${params.id}/${params.season}/${params.episode}`}
         />
       )}
     </div>
   );
-}
+};
 
-export default SeasonDetails
+export default SeasonDetails;
