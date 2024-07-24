@@ -23,11 +23,11 @@ const Card = ({ data, trending, index, media_type }) => {
         {trending && <div className="py-1 px-4">#{index} Trending</div>}
       </div>
 
-      <div className="absolute w-full bottom-0 h-16 backdrop-blur-3xl bg-black/60 py-2 px-2">
+      <div className="absolute w-full bottom-0 h-20 backdrop-blur-3xl bg-black/60 py-2 px-2">
         <h2 className="text-ellipsis line-clamp-1 text-lg font-light">
           {data?.title || data?.name}
         </h2>
-        <div className="text-sm text-neutral-400 flex justify-between items-center">
+        <div className="text-sm text-neutral-400 flex justify-between items-center ">
           <p>{moment(data.release_date).format("MMMM Do YYYY")}</p>
           <p className="bg-black px-2 py-1 rounded-full text-xs text-white">
             Rating : {Number(data.vote_average).toFixed(1)}
